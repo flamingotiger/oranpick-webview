@@ -32,6 +32,7 @@
   border-radius: 4px;
   font-size: 14px;
   padding: 10px 20px;
+  outline: none;
 }
 
 #search_button:hover {
@@ -41,8 +42,8 @@
 }
 
 #map {
-  width: 80%;
-  height: 300px;
+  width: 90%;
+  height: 200px;
   margin: 50px auto;
   border-radius: 10px;
 }
