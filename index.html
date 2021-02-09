@@ -68,7 +68,6 @@
 
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
         function placesSearchCB(data, status, pagination) {
-          console.log(data, status, pagination);
           if (status === kakao.maps.services.Status.OK) {
             places = data;
           }
@@ -76,7 +75,9 @@
 
         function webToApp() {
           if (window.webToAppChange && window.webToAppChange.postMessage) {
-            places.forEach((p) => (p = { ...p, is_favorite: false }));
+            places.forEach(
+              (p, i) => (places[i] = { ...p, is_favorite: false })
+            );
             webToAppChange.postMessage(JSON.stringify({ places: places }));
           }
           var ul = document.getElementById("item");
