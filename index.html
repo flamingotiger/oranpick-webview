@@ -47,7 +47,7 @@
         HP8 병원
         PM9 약국
       */
-
+        var places = [];
         // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
         var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
@@ -66,7 +66,6 @@
         // 카테고리 검색합니다
         ps.categorySearch("FD6", placesSearchCB, { useMapBounds: true });
 
-        let places = [];
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
         function placesSearchCB(data, status, pagination) {
           console.log(data, status, pagination);
@@ -89,9 +88,7 @@
           }
         }
       </script>
-      <ul id="item">
-      
-      </ul>
+      <ul id="item"></ul>
       <button id="btn_web_App" onclick="webToApp()">웹에서 앱으로 전달</button>
     </div>
   </body>
