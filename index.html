@@ -80,10 +80,6 @@
           if (window.webToAppChange && window.webToAppChange.postMessage) {
             webToAppChange.postMessage(places);
           }
-        }
-      </script>
-      <ul id="item">
-        <script>
           var ul = document.getElementById("item");
           for (var i = 0; i <= places.length; i++) {
             var li = document.createElement("li");
@@ -91,7 +87,10 @@
             li.appendChild(liText);
             ul.appendChild(li);
           }
-        </script>
+        }
+      </script>
+      <ul id="item">
+      
       </ul>
       <button id="btn_web_App" onclick="webToApp()">웹에서 앱으로 전달</button>
     </div>
