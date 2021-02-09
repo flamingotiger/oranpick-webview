@@ -76,7 +76,8 @@
 
         function webToApp() {
           if (window.webToAppChange && window.webToAppChange.postMessage) {
-            webToAppChange.postMessage(JSON.stringify({places: places}));
+            places.forEach((p) => (p = { ...p, is_favorite: false }));
+            webToAppChange.postMessage(JSON.stringify({ places: places }));
           }
           var ul = document.getElementById("item");
           for (var i = 0; i <= places.length; i++) {
