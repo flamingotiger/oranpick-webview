@@ -76,7 +76,7 @@
 
         function webToApp() {
           if (window.webToAppChange && window.webToAppChange.postMessage) {
-            webToAppChange.postMessage(Json.stringify(places));
+            webToAppChange.postMessage(JSON.stringify(places));
           }
           var ul = document.getElementById("item");
           for (var i = 0; i <= places.length; i++) {
