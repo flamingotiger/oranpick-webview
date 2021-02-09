@@ -71,44 +71,9 @@
         function placesSearchCB(data, status, pagination) {
           console.log(data, status, pagination);
           if (status === kakao.maps.services.Status.OK) {
-            for (var i = 0; i < data.length; i++) {
-              places = data;
-              //   displayMarker(data[i]);
-            }
+            places = data;
           }
         }
-
-        // 지도에 마커를 표시하는 함수입니다
-        function displayMarker(place) {
-          // 마커를 생성하고 지도에 표시합니다
-          var marker = new kakao.maps.Marker({
-            map: map,
-            position: new kakao.maps.LatLng(place.y, place.x),
-          });
-
-          // 마커에 클릭이벤트를 등록합니다
-          kakao.maps.event.addListener(marker, "click", function () {
-            // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-            infowindow.setContent(
-              '<div style="padding:5px;font-size:12px;">' +
-                place.place_name +
-                "</div>"
-            );
-            infowindow.open(map, marker);
-          });
-        }
-
-        // function webToApp(msg) {
-        //   console.log(msg);
-        //   if (window.webToAppChange && window.webToAppChange.postMessage) {
-        //     webToAppChange.postMessage(message);
-        //   }
-        //   // try {
-        //   //   webToAppChange.postMessage(msg);
-        //   // } catch (err) {
-        //   //   console.log(err);
-        //   // }
-        // }
 
         function webToApp() {
           console.log(places);
@@ -117,6 +82,17 @@
           }
         }
       </script>
+      <ul id="item">
+        <script>
+          var ul = document.getElementById("item");
+          for (var i = 0; i <= places.length; i++) {
+            var li = document.createElement("li");
+            var liText = document.createTextNode(places[i].place_name);
+            li.appendChild(liText);
+            ul.appendChild(li);
+          }
+        </script>
+      </ul>
       <button id="btn_web_App" onclick="webToApp()">웹에서 앱으로 전달</button>
     </div>
   </body>
