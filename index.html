@@ -25,17 +25,6 @@
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=62edd4fc3d5faa0392eef952d7fa3b11&libraries=services"
       ></script>
       <script>
-        function webToApp(msg) {
-          console.log(msg);
-          if (window.webToAppChange && window.webToAppChange.postMessage) {
-            webToAppChange.postMessage(message);
-          }
-          // try {
-          //   webToAppChange.postMessage(msg);
-          // } catch (err) {
-          //   console.log(err);
-          // }
-        }
         /*
         Category Code
 
@@ -108,16 +97,27 @@
             infowindow.open(map, marker);
           });
         }
-        function webToApp(msg) {
+
+        // function webToApp(msg) {
+        //   console.log(msg);
+        //   if (window.webToAppChange && window.webToAppChange.postMessage) {
+        //     webToAppChange.postMessage(message);
+        //   }
+        //   // try {
+        //   //   webToAppChange.postMessage(msg);
+        //   // } catch (err) {
+        //   //   console.log(err);
+        //   // }
+        // }
+
+        function webToApp() {
           console.log(places);
-          try {
+          if (window.webToAppChange && window.webToAppChange.postMessage) {
             webToAppChange.postMessage(places);
-          } catch (err) {}
+          }
         }
       </script>
-      <button id="btn_web_App" onclick="webToApp()">
-        웹에서 앱으로 전달
-      </button>
+      <button id="btn_web_App" onclick="webToApp()">웹에서 앱으로 전달</button>
     </div>
   </body>
 </html>
