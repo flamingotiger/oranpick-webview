@@ -1,5 +1,49 @@
+* {
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+}
+
 .wrapper {
-  width: 80%;
-  border: 1px solid red;
+  width: 90%;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.logo_wrapper {
+  margin-top: 100px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#search_button {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ff6d20;
+  color: #ff6d20;
+  background-color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 10px 20px;
+  outline: none;
+}
+
+#search_button:hover {
+  border: 1px solid #ff6d20;
+  color: #ffffff;
+  background-color: #ff6d20;
+}
+
+#map {
+  width: 90%;
+  height: 200px;
+  margin: 50px auto;
+  border-radius: 10px;
 }
