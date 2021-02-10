@@ -63,27 +63,35 @@
         map.setCenter(coords);
       }
 
-      var places = [];
+      var category = "FD6";
+      // flutter에서 setting값을 불러옵니다.
+      function setSetting(setting_category) {
+        category = setting_category;
+      }
 
-      function getPlaces(category = "FD6") {
+
+      // flutter로 데이터를 보냅니다.
+      function search() {
         // 장소 검색 객체를 생성합니다
         var ps = new kakao.maps.services.Places(map);
+
         // 카테고리 검색합니다
         ps.categorySearch(category, placesSearchCB, { useMapBounds: true });
 
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
         function placesSearchCB(data, status, pagination) {
           if (status === kakao.maps.services.Status.OK) {
-            places = data;
+            var places = data;
+            if (
+              window.getPlacesWebToApp &&
+              window.getPlacesWebToApp.postMessage
+            ) {
+              places.forEach(
+                (p, i) => (places[i] = { ...p, is_favorite: false })
+              );
+              getPlacesWebToApp.postMessage(JSON.stringify({ places: places }));
+            }
           }
-        }
-      }
-
-      // flutter로 데이터를 보냅니다.
-      function search() {
-        if (window.getPlacesWebToApp && window.getPlacesWebToApp.postMessage) {
-          places.forEach((p, i) => (places[i] = { ...p, is_favorite: false }));
-          getPlacesWebToApp.postMessage(JSON.stringify({ places: places }));
         }
       }
 
