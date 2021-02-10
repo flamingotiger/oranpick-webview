@@ -53,40 +53,41 @@
       var latitude = 37.566826;
       var longitude = 126.9786567;
 
-      function kakaoMap() {
-        var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-          mapOption = {
-            center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-          };
-        // 지도를 생성합니다
-        var map = new kakao.maps.Map(mapContainer, mapOption);
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
+      // 지도를 생성합니다
+      var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        // 장소 검색 객체를 생성합니다
-        var ps = new kakao.maps.services.Places(map);
+      // 장소 검색 객체를 생성합니다
+      var ps = new kakao.maps.services.Places(map);
 
-        // 카테고리 검색합니다
-        ps.categorySearch("FD6", placesSearchCB, { useMapBounds: true });
+      // 카테고리 검색합니다
+      ps.categorySearch("FD6", placesSearchCB, { useMapBounds: true });
 
-        // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-        function placesSearchCB(data, status, pagination) {
-          if (status === kakao.maps.services.Status.OK) {
-            places = data;
-          }
+      // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+      function placesSearchCB(data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+          places = data;
         }
       }
-
-      kakaoMap();
 
       // flutter에서 위치정보를 가져옵니다.
       function getPositionAppToWeb(position_latitude, position_longitude) {
         latitude = position_latitude;
         longitude = position_longitude;
-        alert(
-          `position_latitude: ${position_latitude}`,
-          `position_longitude: ${position_longitude}`
+        var coords = new kakao.maps.LatLng(
+          position_latitude,
+          position_longitude
         );
-        kakaoMap();
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords,
+        });
+        map.setCenter(coords);
       }
 
       // flutter로 데이터를 보냅니다.
