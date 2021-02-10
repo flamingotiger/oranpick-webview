@@ -11,21 +11,21 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="wrapper">
-      <div class="logo_wrapper">
-        <img src="./images/search.png" alt="search-icon" />
-        <button id="search_button" onclick="webToApp('웹페이지에서 앱 전달')">
-          검색하기
-        </button>
+    <div class="header">
+      <img id="logo" src="./images/search.png" alt="search-icon" />
+      <div id="header_right">
+        <h1 id="title">근처 음식점 검색</h1>
+        <span id="address">현재 주소</span>
       </div>
+    </div>
 
-      <div id="map"></div>
-      <script
-        type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=62edd4fc3d5faa0392eef952d7fa3b11&libraries=services"
-      ></script>
-      <script>
-        /*
+    <div id="map"></div>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=62edd4fc3d5faa0392eef952d7fa3b11&libraries=services"
+    ></script>
+    <script>
+      /*
         Category Code
 
         MT1 대형마트
@@ -47,50 +47,39 @@
         HP8 병원
         PM9 약국
       */
-        var places = [];
-        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-        var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      var places = [];
+      // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-        var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-          mapOption = {
-            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-          };
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
 
-        // 지도를 생성합니다
-        var map = new kakao.maps.Map(mapContainer, mapOption);
+      // 지도를 생성합니다
+      var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        // 장소 검색 객체를 생성합니다
-        var ps = new kakao.maps.services.Places(map);
+      // 장소 검색 객체를 생성합니다
+      var ps = new kakao.maps.services.Places(map);
 
-        // 카테고리 검색합니다
-        ps.categorySearch("FD6", placesSearchCB, { useMapBounds: true });
+      // 카테고리 검색합니다
+      ps.categorySearch("FD6", placesSearchCB, { useMapBounds: true });
 
-        // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-        function placesSearchCB(data, status, pagination) {
-          if (status === kakao.maps.services.Status.OK) {
-            places = data;
-          }
+      // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+      function placesSearchCB(data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+          places = data;
         }
-
-        function webToApp() {
-          if (window.webToAppChange && window.webToAppChange.postMessage) {
-            places.forEach(
-              (p, i) => (places[i] = { ...p, is_favorite: false })
-            );
-            webToAppChange.postMessage(JSON.stringify({ places: places }));
-          }
-          var ul = document.getElementById("item");
-          for (var i = 0; i <= places.length; i++) {
-            var li = document.createElement("li");
-            var liText = document.createTextNode(places[i].place_name);
-            li.appendChild(liText);
-            ul.appendChild(li);
-          }
+      }
+      function webToApp() {
+        if (window.webToAppChange && window.webToAppChange.postMessage) {
+          places.forEach((p, i) => (places[i] = { ...p, is_favorite: false }));
+          webToAppChange.postMessage(JSON.stringify({ places: places }));
         }
-      </script>
-      <ul id="item"></ul>
-      <button id="btn_web_App" onclick="webToApp()">웹에서 앱으로 전달</button>
-    </div>
+        console.log(places);
+      }
+    </script>
+    <button id="search_button" onclick="webToApp()">검색하기</button>
   </body>
 </html>
