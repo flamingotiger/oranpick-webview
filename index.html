@@ -60,10 +60,9 @@
         map.setCenter(coords);
       }
 
-      // flutter로 데이터를 보냅니다.
-      function search(category = "FD6") {
-        var places = [];
+      var places = [];
 
+      function getPlaces() {
         // 장소 검색 객체를 생성합니다
         var ps = new kakao.maps.services.Places(map);
         // 카테고리 검색합니다
@@ -75,7 +74,10 @@
             places = data;
           }
         }
+      }
 
+      // flutter로 데이터를 보냅니다.
+      function search(category = "FD6") {
         if (window.getPlacesWebToApp && window.getPlacesWebToApp.postMessage) {
           places.forEach((p, i) => (places[i] = { ...p, is_favorite: false }));
           getPlacesWebToApp.postMessage(JSON.stringify({ places: places }));
