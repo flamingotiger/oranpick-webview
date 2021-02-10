@@ -15,7 +15,7 @@
       <img id="logo" src="./images/search.png" alt="search-icon" />
       <div id="header_right">
         <h1 id="title">근처 음식점 검색</h1>
-        <span id="address">현재 주소</span>
+        <span id="address">지번 주소</span>
       </div>
     </div>
 
@@ -37,16 +37,13 @@
       // 주소-좌표 변환 객체를 생성합니다
       var geocoder = new kakao.maps.services.Geocoder();
 
-      // 장소 검색 객체를 생성합니다
-      var ps = new kakao.maps.services.Places(map);
-
       // flutter에서 위치정보를 가져옵니다.
       function getPositionAppToWeb(position_latitude, position_longitude) {
         var coords = new kakao.maps.LatLng(
           position_latitude,
           position_longitude
         );
-        mapOption.center = coords;
+
         searchDetailAddrFromCoords(coords, function (result, status) {
           if (status === kakao.maps.services.Status.OK) {
             // 도로명주소
@@ -66,6 +63,8 @@
 
       // flutter로 데이터를 보냅니다.
       function search(category = "FD6") {
+        // 장소 검색 객체를 생성합니다
+        var ps = new kakao.maps.services.Places(map);
         // 카테고리 검색합니다
         ps.categorySearch(category, placesSearchCB, { useMapBounds: true });
 
