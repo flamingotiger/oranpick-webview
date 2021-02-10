@@ -37,7 +37,10 @@
       var geocoder = new kakao.maps.services.Geocoder();
 
       // flutter에서 위치정보를 가져옵니다.
-      function getPositionAppToWeb(position_latitude, position_longitude) {
+      function getPositionAppToWeb(
+        position_latitude = 37.566826,
+        position_longitude = 126.9786567
+      ) {
         var coords = new kakao.maps.LatLng(
           position_latitude,
           position_longitude
