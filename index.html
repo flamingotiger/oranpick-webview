@@ -69,7 +69,6 @@
         category = setting_category;
       }
 
-
       // flutter로 데이터를 보냅니다.
       function search() {
         // 장소 검색 객체를 생성합니다
@@ -86,9 +85,6 @@
               window.getPlacesWebToApp &&
               window.getPlacesWebToApp.postMessage
             ) {
-              places.forEach(
-                (p, i) => (places[i] = { ...p, is_favorite: false })
-              );
               getPlacesWebToApp.postMessage(JSON.stringify({ places: places }));
             }
           }
